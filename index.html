@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WaW HUD Editor</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <main id="app" hidden>
+      <div class="tab-bar">
+        <div class="tab">HUD</div>
+        <span>WaW HUD Editor | <span data-version></span></span>
+      </div>
+      <section class="editor">
+        <div class="toolbar document-tools">
+          <div class="button-group">
+            <button id="new">New</button><button id="open">Open…</button
+            ><button id="save">Save</button
+            ><button id="save-as">Save as…</button>
+          </div>
+          <span id="project-name">Untitled HUD</span>
+          <button id="undo" title="Undo (Ctrl+Z)">Undo</button
+          ><button id="redo" title="Redo (Ctrl+Y)">Redo</button>
+          <button id="export" class="primary">Export</button>
+        </div>
+        <div class="workspace">
+          <aside class="left-panel">
+            <div class="section-title">
+              <strong>Layers</strong><span id="item-count">0 / 256</span>
+            </div>
+            <div class="add-tools">
+              <button id="add-text">+ Text</button
+              ><button id="add-rectangle">+ Rectangle</button
+              ><button id="add-image">+ Material</button>
+            </div>
+            <div
+              id="layers"
+              role="listbox"
+              aria-label="HUD layers"
+              aria-multiselectable="true"
+            ></div>
+            <div class="layer-actions">
+              <button id="layer-up" title="Move selected layers up">Up</button
+              ><button id="layer-down" title="Move selected layers down">
+                Down</button
+              ><button id="duplicate">Duplicate</button
+              ><button id="delete">Delete</button>
+            </div>
+            <div class="group-actions">
+              <button id="group" title="Group two or more selected layers">
+                Group</button
+              ><button
+                id="ungroup"
+                title="Remove selected layers from their groups"
+              >
+                Ungroup
+              </button>
+            </div>
+          </aside>
+          <section class="canvas-panel">
+            <div class="canvas-tools">
+              <label
+                >Preview
+                <select id="resolution">
+                  <option value="1280,720">16:9 · 1280 × 720</option>
+                  <option value="640,480">4:3 · 640 × 480</option>
+                  <option value="1920,1080">16:9 · 1920 × 1080</option>
+                  <option value="custom">Custom…</option>
+                </select></label
+              >
+              <button id="fit">Fit</button
+              ><button
+                id="actual-size"
+                title="One preview pixel per screen pixel"
+              >
+                100%
+              </button>
+              <label><input id="grid" type="checkbox" checked /> Grid</label
+              ><label><input id="snap" type="checkbox" checked /> Snap</label>
+              <select
+                id="snap-size"
+                aria-label="Grid and snap size in HUD units"
+                title="Grid and snap size in HUD units"
+              >
+                <option value="1">1 unit</option>
+                <option value="2">2 units</option>
+                <option value="4">4 units</option>
+                <option value="8" selected>8 units</option>
+                <option value="16">16 units</option>
+                <option value="32">32 units</option>
+                <option value="64">64 units</option>
+              </select>
+              <span id="zoom">100%</span>
+            </div>
+            <div
+              id="workspace"
+              tabindex="0"
+              aria-label="HUD canvas. Drag to move, handles to resize, wheel to zoom."
+            >
+              <canvas id="scene"></canvas><canvas id="overlay"></canvas>
+            </div>
+            <div class="canvas-bottom">
+              <span
+                >Drag to move · handles to resize · wheel to zoom · Space + drag
+                to pan</span
+              ><button id="background">Background…</button
+              ><span id="cursor-position">—</span>
+            </div>
+            <section id="asset-tray" aria-label="HUD assets">
+              <div
+                id="tray-resize"
+                role="separator"
+                aria-label="Resize asset tray"
+                aria-orientation="horizontal"
+                tabindex="0"
+              ></div>
+              <div class="asset-toolbar">
+                <button id="materials-tab" aria-pressed="true">
+                  Materials
+                </button>
+                <button id="fonts-tab" aria-pressed="false">Fonts</button>
+                <button id="local-tab" aria-pressed="false">
+                  Local images
+                </button>
+                <input
+                  id="asset-search"
+                  type="search"
+                  placeholder="Find a 2D material…"
+                  aria-label="Search assets"
+                />
+                <button
+                  id="reload-assets"
+                  title="Rescan after converting or installing assets"
+                >
+                  Rescan
+                </button>
+                <button
+                  id="clear-asset-cache"
+                  title="Delete this installation’s saved catalogue. Your HUD and game assets stay untouched."
+                >
+                  Clear cache
+                </button>
+                <button id="toggle-assets" aria-expanded="true">
+                  Hide tray
+                </button>
+              </div>
+              <div id="asset-content">
+                <p id="asset-summary" class="hint">
+                  Browse converted 2D materials or stock fonts.
+                </p>
+                <p id="asset-cache-status" class="hint" role="status"></p>
+                <div id="asset-list" aria-label="Asset thumbnails"></div>
+                <div id="local-browser" hidden>
+                  <nav class="local-folders" aria-label="Local image folders">
+                    <div class="button-group">
+                      <button id="local-browse">Browse…</button
+                      ><button id="local-up" disabled>Up</button>
+                    </div>
+                    <p id="local-path" class="asset-detail">
+                      Choose an image folder.
+                    </p>
+                    <div id="local-folders"></div>
+                  </nav>
+                  <div
+                    id="local-list"
+                    aria-label="Local image thumbnails"
+                  ></div>
+                </div>
+              </div>
+            </section>
+          </section>
+          <aside class="inspector-panel">
+            <div class="section-title">
+              <strong>Properties</strong
+              ><span id="selection-count">No selection</span>
+            </div>
+            <div id="inspector">
+              <div class="empty-inspector">
+                <strong>Compose your HUD</strong>
+                <p>
+                  Add text, a rectangle or a converted material. Select a layer
+                  to change its layout and appearance.
+                </p>
+                <p>
+                  Positions use WaW's HUD coordinates. Preview resolution
+                  changes the view, not your design values.
+                </p>
+              </div>
+            </div>
+          </aside>
+        </div>
+        <p id="message" role="status">Loading stock fonts…</p>
+      </section>
+    </main>
+    <section id="placement" hidden>
+      <div class="placement-card">
+        <h1>WaW HUD Editor</h1>
+        <p id="placement-message"></p>
+        <p class="hint">
+          The editor reads converted Modtools assets. No game files are
+          installed or changed.
+        </p>
+      </div>
+    </section>
+    <footer>
+      <span id="status">Starting…</span>
+      <div class="footer-tools">
+        <span id="environment">Development</span
+        ><button
+          id="about"
+          class="icon-button"
+          aria-label="About WaW HUD Editor"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 20 20"
+            fill="none"
+            aria-hidden="true"
+          >
+            <circle cx="10" cy="10" r="7.2" stroke="currentColor" />
+            <path
+              d="M10 9v5M10 5.8v1"
+              stroke="currentColor"
+              stroke-width="1.4"
+            />
+          </svg>
+        </button>
+      </div>
+    </footer>
+    <dialog id="about-dialog" aria-labelledby="about-title">
+      <div class="dialog-title" id="about-title">About WaW HUD Editor</div>
+      <div class="dialog-body">
+        <p>An unofficial tool made for the World at War modding community.</p>
+        <p>
+          Compose static HUD text, converted 2D materials and rectangles, then
+          export an .inc file. Local images and screenshot backgrounds can be
+          used for design; local HUD images need converted materials before
+          export. Uses stock glyphs and native layout values. The preview is a
+          composition aid; it does not reproduce every in-game shader or
+          graphics setting.
+        </p>
+        <p>
+          No GSC bindings, gameplay counters, menu-screen editing or asset
+          conversion. The export flow prepares your mod's HUD sources and
+          images. Build the mod in Launcher, then test it in-game.
+        </p>
+        <p>
+          Independent of Treyarch, Activision and UGX. Built with JavaScript,
+          Vite, Rust and Tauri. IWI wavelet decoding derives from
+          OpenAssetTools; see ATTRIBUTION.md.
+        </p>
+        <p class="credit">Created by <strong>phil81334</strong>.</p>
+        <label for="repo-url">Source, instructions and releases</label
+        ><input
+          id="repo-url"
+          class="repo-url"
+          readonly
+          value="https://github.com/phil81334/waw-hud-editor"
+        />
+        <div class="dialog-actions">
+          <button data-close="about-dialog">Close</button>
+        </div>
+      </div>
+    </dialog>
+    <dialog id="export-dialog" aria-labelledby="export-title">
+      <div class="dialog-title" id="export-title">Export</div>
+      <div class="dialog-body">
+        <section id="export-local" class="export-option" hidden>
+          <h3>Local images need converted materials</h3>
+          <p class="hint">
+            Convert these images in Asset Manager, then assign their converted
+            materials. Code and HUD setup are unavailable until every image
+            layer is linked. Already converted images can still be copied
+            separately.
+          </p>
+          <div id="export-local-items"></div>
+        </section>
+        <p class="hint">
+          Use whichever options you need. Each action is separate.
+        </p>
+        <section class="export-option" aria-labelledby="export-code-title">
+          <h3 id="export-code-title">HUD code</h3>
+          <p>
+            Copy the generated code or save an .inc for your own HUD setup. No
+            mod selection needed.
+          </p>
+          <div class="export-option-actions">
+            <button id="copy-source">Copy code</button>
+            <button id="save-export">Save .inc…</button>
+          </div>
+          <p id="export-code-status" class="success" role="status"></p>
+          <details id="export-code">
+            <summary>View code and integration notes</summary>
+            <p class="hint">
+              These itemDef blocks go inside a compatible menuDef with rect 0 0
+              640 480 0 0 and no host border. Include the .inc from your own
+              HUD, add its material entries to mod.csv, and package its images.
+              This option does not change your mod.
+            </p>
+            <textarea
+              id="export-source"
+              readonly
+              spellcheck="false"
+              aria-label="Generated INC source"
+            ></textarea>
+            <div id="export-material-dependencies" hidden>
+              <p class="hint">Material entries for your mod.csv:</p>
+              <pre id="export-materials"></pre>
+              <button id="copy-materials">Copy material entries</button>
+            </div>
+          </details>
+        </section>
+        <label class="export-field"
+          >Mod for the options below
+          <span class="export-mod-row"
+            ><select id="export-mod" aria-label="Mod"></select
+            ><button id="export-refresh">Refresh</button></span
+          >
+        </label>
+        <p id="export-mod-hint" class="hint">
+          Close Launcher before changing its image selections. Reopen it
+          afterwards.
+        </p>
+        <section class="export-option" aria-labelledby="export-images-title">
+          <h3 id="export-images-title">Images</h3>
+          <p>
+            Copy the images used by this HUD into the mod and select them for
+            Launcher’s IWD build. Your HUD code and mod.csv stay as they are.
+          </p>
+          <p id="export-image-count" class="hint"></p>
+          <button id="export-images-review">Review image files…</button>
+        </section>
+        <section class="export-option" aria-labelledby="export-setup-title">
+          <h3 id="export-setup-title">HUD setup</h3>
+          <p>
+            Add this HUD’s .inc, a compatible HUD source and its build
+            references. Images are copied separately using the option above.
+          </p>
+          <div class="field-grid">
+            <label
+              >Game mode<select id="export-profile">
+                <option value="sp">Single-player / Zombies</option>
+                <option value="mp">Multiplayer</option>
+              </select></label
+            >
+            <label
+              >HUD filename<input
+                id="export-name"
+                maxlength="40"
+                placeholder="my_hud"
+                spellcheck="false"
+            /></label>
+          </div>
+          <p class="hint">
+            One editor HUD per game mode. Keep the filename when updating it.
+            Custom setups the editor cannot safely integrate need the HUD code
+            option instead.
+          </p>
+          <button id="export-review">Review HUD setup…</button>
+        </section>
+        <section id="export-review-panel" class="export-option" hidden>
+          <h3 id="export-review-title"></h3>
+          <p id="export-folder" class="export-path"></p>
+          <div class="export-file-list">
+            <table>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>File</th>
+                  <th>For</th>
+                </tr>
+              </thead>
+              <tbody id="export-files"></tbody>
+            </table>
+          </div>
+          <p class="hint">
+            Only these files will change. Changed files get numbered backups;
+            matching files are kept. Nothing changes until you apply this
+            review.
+          </p>
+          <div class="export-option-actions">
+            <button id="export-discard">Discard review</button
+            ><button id="export-prepare" class="primary">Apply</button>
+          </div>
+        </section>
+        <section id="export-completed" hidden>
+          <p id="export-result" class="success" role="status"></p>
+          <p id="export-build-hint" class="hint"></p>
+          <details>
+            <summary>Backups</summary>
+            <pre id="export-backups"></pre>
+          </details>
+        </section>
+        <p id="export-error" class="error" role="alert"></p>
+        <p id="export-progress" class="hint" role="status"></p>
+        <div class="dialog-actions">
+          <button id="export-close" data-close="export-dialog">Close</button>
+        </div>
+      </div>
+    </dialog>
+    <dialog id="choice-dialog">
+      <div class="dialog-title" id="choice-title"></div>
+      <div class="dialog-body">
+        <p id="choice-message"></p>
+        <div id="choice-buttons" class="dialog-actions"></div>
+      </div>
+    </dialog>
+    <dialog id="resolution-dialog">
+      <div class="dialog-title">Preview resolution</div>
+      <form id="resolution-form" class="dialog-body">
+        <p>Changing the preview does not rewrite layer coordinates.</p>
+        <div class="field-grid">
+          <label
+            >Width<input
+              id="preview-width"
+              type="number"
+              min="320"
+              max="7680"
+              required /></label
+          ><label
+            >Height<input
+              id="preview-height"
+              type="number"
+              min="320"
+              max="7680"
+              required
+          /></label>
+        </div>
+        <div class="dialog-actions">
+          <button type="button" data-close="resolution-dialog">Cancel</button
+          ><button class="primary">Apply</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="background-dialog" aria-labelledby="background-title">
+      <div id="background-title" class="dialog-title">Canvas background</div>
+      <div class="dialog-body">
+        <p class="hint">
+          An editor-only reference. It is saved as a file link in your project
+          and never included in HUD exports.
+        </p>
+        <button id="background-choose">Choose image…</button>
+        <p id="background-info" class="asset-detail">No background selected.</p>
+        <div class="check-row">
+          <label
+            ><input id="background-visible" type="checkbox" /> Show
+            background</label
+          >
+        </div>
+        <label
+          >Opacity
+          <input
+            id="background-opacity"
+            type="range"
+            min="0"
+            max="100"
+            value="100"
+          /><span id="background-percent">100%</span></label
+        >
+        <p class="hint">
+          Images fit inside the canvas without stretching. Match the preview
+          size to your screenshot for matching proportions.
+        </p>
+        <div class="button-group">
+          <button id="background-size">Use image size</button
+          ><button id="background-remove">Remove</button>
+        </div>
+        <div class="dialog-actions">
+          <button data-close="background-dialog">Close</button>
+        </div>
+      </div>
+    </dialog>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
