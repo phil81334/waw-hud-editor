@@ -1,0 +1,318 @@
+{
+  "format": "waw-hud",
+  "version": 1,
+  "name": "Untitled HUD-1",
+  "items": [
+    {
+      "id": "0f0f4e9c-78cf-431c-bc22-c406780f4554",
+      "name": "image_2",
+      "kind": "image",
+      "rect": [
+        "288",
+        "40",
+        "240",
+        "135.071777344",
+        1,
+        1
+      ],
+      "text": "",
+      "font": 1,
+      "scale": "0.375",
+      "align": 4,
+      "offset": [
+        "0",
+        "0"
+      ],
+      "textStyle": 0,
+      "wrap": false,
+      "foreground": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "fill": [
+        "0.1",
+        "0.2",
+        "0.3",
+        "0.75"
+      ],
+      "border": 0,
+      "thickness": "1",
+      "borderColor": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "material": "",
+      "visible": true,
+      "hidden": false,
+      "locked": false,
+      "group": "",
+      "localImage": {
+        "path": "C:\\Users\\Phil-\\OneDrive\\Documents\\workspace\\dev-general\\gpt-imgs\\ChatGPT Image Oct 14, 2026, 12_39_11 PM.png"
+      }
+    },
+    {
+      "id": "440433f6-27cf-4cf4-83d4-124e7a9ebbd9",
+      "name": "image_3",
+      "kind": "image",
+      "rect": [
+        "16",
+        "256",
+        "240",
+        "180",
+        1,
+        1
+      ],
+      "text": "",
+      "font": 1,
+      "scale": "0.375",
+      "align": 4,
+      "offset": [
+        "0",
+        "0"
+      ],
+      "textStyle": 0,
+      "wrap": false,
+      "foreground": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "fill": [
+        "0.1",
+        "0.2",
+        "0.3",
+        "0.75"
+      ],
+      "border": 0,
+      "thickness": "1",
+      "borderColor": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "material": "",
+      "visible": true,
+      "hidden": false,
+      "locked": false,
+      "group": "",
+      "localImage": {
+        "path": "C:\\Users\\Phil-\\OneDrive\\Documents\\workspace\\dev-general\\gpt-imgs\\Golden Sunset Canyon Fortress.png"
+      }
+    },
+    {
+      "id": "fe77116f-b0e9-4bda-8620-b3f7cd903ddd",
+      "name": "image_1",
+      "kind": "image",
+      "rect": [
+        "16",
+        "64",
+        "240",
+        "135.071777344",
+        1,
+        1
+      ],
+      "text": "",
+      "font": 1,
+      "scale": "0.375",
+      "align": 4,
+      "offset": [
+        "0",
+        "0"
+      ],
+      "textStyle": 0,
+      "wrap": false,
+      "foreground": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "fill": [
+        "0.1",
+        "0.2",
+        "0.3",
+        "0.75"
+      ],
+      "border": 0,
+      "thickness": "1",
+      "borderColor": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "material": "",
+      "visible": true,
+      "hidden": false,
+      "locked": false,
+      "group": "",
+      "localImage": {
+        "path": "C:\\Users\\Phil-\\OneDrive\\Documents\\workspace\\dev-general\\gpt-imgs\\Neon Rainfall in the Cyberpunk Plaza.png"
+      }
+    },
+    {
+      "id": "be78b4e5-1bf5-4324-aa3e-72b3f9011297",
+      "name": "image_4",
+      "kind": "image",
+      "rect": [
+        "296",
+        "248",
+        "240",
+        "180",
+        1,
+        1
+      ],
+      "text": "",
+      "font": 1,
+      "scale": "0.375",
+      "align": 4,
+      "offset": [
+        "0",
+        "0"
+      ],
+      "textStyle": 0,
+      "wrap": false,
+      "foreground": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "fill": [
+        "0.1",
+        "0.2",
+        "0.3",
+        "0.75"
+      ],
+      "border": 0,
+      "thickness": "1",
+      "borderColor": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "material": "",
+      "visible": true,
+      "hidden": false,
+      "locked": false,
+      "group": "",
+      "localImage": {
+        "path": "C:\\Users\\Phil-\\OneDrive\\Documents\\workspace\\dev-general\\gpt-imgs\\Motel Courtyard Greybox at Dusk.png"
+      }
+    },
+    {
+      "id": "9c731a5a-2ae7-4340-b4e2-0674dd222225",
+      "name": "image_5",
+      "kind": "image",
+      "rect": [
+        "568",
+        "24",
+        "240",
+        "180",
+        1,
+        1
+      ],
+      "text": "",
+      "font": 1,
+      "scale": "0.375",
+      "align": 4,
+      "offset": [
+        "0",
+        "0"
+      ],
+      "textStyle": 0,
+      "wrap": false,
+      "foreground": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "fill": [
+        "0.1",
+        "0.2",
+        "0.3",
+        "0.75"
+      ],
+      "border": 0,
+      "thickness": "1",
+      "borderColor": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "material": "",
+      "visible": true,
+      "hidden": false,
+      "locked": false,
+      "group": "",
+      "localImage": {
+        "path": "C:\\Users\\Phil-\\OneDrive\\Documents\\workspace\\dev-general\\gpt-imgs\\Moonlit Industrial Courtyard.png"
+      }
+    },
+    {
+      "id": "23c55365-fec5-4f9b-b611-e3ff6e831b15",
+      "name": "image_6",
+      "kind": "image",
+      "rect": [
+        "568",
+        "264",
+        "240",
+        "180",
+        1,
+        1
+      ],
+      "text": "",
+      "font": 1,
+      "scale": "0.375",
+      "align": 4,
+      "offset": [
+        "0",
+        "0"
+      ],
+      "textStyle": 0,
+      "wrap": false,
+      "foreground": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "fill": [
+        "0.1",
+        "0.2",
+        "0.3",
+        "0.75"
+      ],
+      "border": 0,
+      "thickness": "1",
+      "borderColor": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "material": "",
+      "visible": true,
+      "hidden": false,
+      "locked": false,
+      "group": "",
+      "localImage": {
+        "path": "C:\\Users\\Phil-\\OneDrive\\Documents\\workspace\\dev-general\\gpt-imgs\\Sunset Rooftops_ Urban Combat Map.png"
+      }
+    }
+  ],
+  "background": null,
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  }
+}
