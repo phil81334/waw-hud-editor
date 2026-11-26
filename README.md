@@ -72,7 +72,7 @@ Next time, run `npm run dev` or click **dev**'s play button in VS Code's **NPM S
 | `npm run build` | Creates `release/vX.Y.Z/waw-hud-editor.exe`. |
 | `npm run build:web` | Builds the UI files only. No EXE. |
 
-The version folder matches `package.json`. If that version is already archived, the build prints the location of your newly compiled EXE.
+The version folder matches `package.json`. Rebuilding an archived version writes the new EXE to `release/vX.Y.Z-rebuild/waw-hud-editor.exe`.
 
 Put your built EXE beside `CoDWaW.exe` to use it.
 
