@@ -36,11 +36,17 @@ child.on("error", (error) => {
 child.on("exit", (code) => {
   process.exitCode = code ?? 1;
   if (code === 0 && command === "build") {
-    mkdirSync(resolve(root, "release"), { recursive: true });
-    copyFileSync(
-      resolve(root, "src-tauri/target/release/waw-hud-editor.exe"),
-      resolve(root, "release/waw-hud-editor.exe"),
-    );
-    console.log("Ready: release/waw-hud-editor.exe");
+    const { version } = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8"));
+    const versionDir = resolve(root, "release", `v${version}`);
+    const executable = resolve(versionDir, "waw-hud-editor.exe");
+    const builtExecutable = resolve(root, "src-tauri/target/release/waw-hud-editor.exe");
+    if (existsSync(resolve(versionDir, "release-info.md")) && existsSync(executable)) {
+      console.log(`Release v${version} is already archived. Your new build is at ${builtExecutable}`);
+      return;
+    }
+
+    mkdirSync(versionDir, { recursive: true });
+    copyFileSync(builtExecutable, executable);
+    console.log(`Ready: ${executable}`);
   }
 });

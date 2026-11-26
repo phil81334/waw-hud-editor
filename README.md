@@ -1,8 +1,8 @@
 # WaW HUD Editor
 
-**An unofficial community app. Not affiliated with Treyarch, Activision or UGX.**
-
 Design static World at War HUDs without writing `.inc` code. Place text, rectangles and images, then export the code or prepare your mod. Made by [phil81334](https://github.com/phil81334). Built with JavaScript, Rust, Vite and Tauri.
+
+WaW HUD Editor is not affiliated with Treyarch, Activision or any modding community.
 
 ![WaW HUD Editor](images/waw-hud-editor.png)
 
@@ -69,8 +69,10 @@ Next time, run `npm run dev` or click **dev**'s play button in VS Code's **NPM S
 | --- | --- |
 | `npm run dev` | Opens the desktop app for development. |
 | `npm run dev:web` | Previews the UI in a browser; no installed fonts/materials or native file dialogs. |
-| `npm run build` | Creates `release/waw-hud-editor.exe`. |
+| `npm run build` | Creates `release/vX.Y.Z/waw-hud-editor.exe`. |
 | `npm run build:web` | Builds the UI files only. No EXE. |
+
+The version folder matches `package.json`. If that version is already archived, the build prints the location of your newly compiled EXE.
 
 Put your built EXE beside `CoDWaW.exe` to use it.
 
